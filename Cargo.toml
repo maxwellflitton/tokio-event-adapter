@@ -1,0 +1,9 @@
+
+[workspace]
+resolver = "2"
+
+members = [
+    "crates/event-runtime", "crates/event-subscriber", "crates/publish-event",
+    "playground/basic-run",
+    "tokio-event-adapter"
+]

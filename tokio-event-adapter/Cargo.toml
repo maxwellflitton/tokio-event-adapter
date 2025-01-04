@@ -1,0 +1,10 @@
+[package]
+name = "tokio-event-adapter"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+event-subscriber = { path = "../crates/event-subscriber" }
+publish-event = { path = "../crates/publish-event" }
+bincode = "1.3.3"
+ctor = "0.2.9"
