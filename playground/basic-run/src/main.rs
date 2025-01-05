@@ -3,6 +3,8 @@ use tokio_event_adapter::config_event_runtime;
 use tokio_event_adapter::publish_event;
 
 use serde::{Serialize, Deserialize};
+mod another_mod;
+// use another_mod;
 
 config_event_runtime!();
 
@@ -31,6 +33,11 @@ async fn main() {
     test(one).await;
     let two = One {};
     publish_event!(two);
+    let add_ints = another_mod::AddNumbers {
+        num1: 1,
+        num2: 2,
+    };
+    publish_event!(add_ints);
     std::thread::sleep(std::time::Duration::from_secs(5));
 }
 

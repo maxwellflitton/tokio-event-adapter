@@ -1,8 +1,8 @@
 extern crate proc_macro;
 
 use proc_macro::TokenStream;
-use quote::{quote, format_ident, ToTokens};
-use syn::{parse_macro_input, ItemStruct, Ident, Item, DataStruct};
+use quote::quote;
+use syn::{parse_macro_input, Ident};
 
 
 #[proc_macro]
@@ -11,8 +11,8 @@ pub fn publish_event(input: TokenStream) -> TokenStream {
 
     let expanded = quote! {
         {
-            let debug_display = format!("{:?}", #instance_name);
-            let name = debug_display.split("{").nth(0).unwrap();
+            let type_name = std::any::type_name_of_val(&#instance_name);
+            let name = type_name.split("::").last().unwrap(); // Extract the last segment (e.g., "AddNumbers")
             let data = bincode::serialize(&#instance_name).unwrap();
             crate::tokio_event_adapter_runtime::publish_event(name, data);
         }
